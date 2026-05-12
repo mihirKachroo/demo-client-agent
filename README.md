@@ -1,5 +1,7 @@
 # Agents From Scratch 
 
+Original source: https://github.com/langchain-ai/agents-from-scratch
+
 The repo is a guide to building agents from scratch. It builds up to an ["ambient"](https://blog.langchain.dev/introducing-ambient-agents/) agent that can manage your email with connection to the Gmail API. It's grouped into 4 sections, each with a notebook and accompanying code in the `src/email_assistant` directory. These section build from the basics of agents, to agent evaluation, to human-in-the-loop, and finally to memory. These all come together in an agent that you can deploy, and the principles can be applied to other agents across a wide range of tasks. 
 
 ![overview](notebooks/img/overview.png)
