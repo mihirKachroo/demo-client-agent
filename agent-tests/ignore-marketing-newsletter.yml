@@ -1,0 +1,14 @@
+id: ignore-marketing-newsletter
+title: Ignore a low-value marketing newsletter
+target: email_assistant.email_assistant:email_assistant
+task:
+  email_input:
+    author: Marketing Team <marketing@example.com>
+    to: Lance <lance@example.com>
+    subject: New Company Newsletter Available
+    email_thread: The latest company newsletter is now available.
+assertions:
+- type: classification_is
+  value: ignore
+source: init
+severity: medium

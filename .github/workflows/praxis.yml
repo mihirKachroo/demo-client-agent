@@ -1,0 +1,28 @@
+name: Praxis
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  praxis:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: Tile-Labs/Praxis/.github/actions/praxis@mihir
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          client-setup-command: uv sync --extra dev
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
+          LANGSMITH_TRACING: "true"
+          LANGSMITH_PROJECT: "Praxis Demo"

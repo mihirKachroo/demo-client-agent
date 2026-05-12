@@ -1,0 +1,16 @@
+id: respond-api-docs-question
+title: Respond to a direct API documentation question
+target: email_assistant.email_assistant:email_assistant
+task:
+  email_input:
+    author: Alice <alice@example.com>
+    to: Lance <lance@example.com>
+    subject: Quick question about API documentation
+    email_thread: Can you clarify whether /auth/refresh should be documented?
+assertions:
+- type: classification_is
+  value: respond
+- type: tool_called
+  value: write_email
+source: init
+severity: high
