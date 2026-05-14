@@ -17,13 +17,23 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: Tile-Labs/Praxis/.github/actions/praxis@mihir
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          praxis-version: "0.1.0"
-          client-setup-command: uv sync --extra dev
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Install client dependencies
+        run: uv sync --extra dev
+
+      - name: Install Praxis
+        run: uv pip install praxis-ai==0.1.0
+
+      - name: Run Praxis
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
           LANGSMITH_TRACING: "true"
           LANGSMITH_PROJECT: "Praxis Demo"
+        run: |
+          praxis ci \
+            --repo "$GITHUB_WORKSPACE" \
+            --pr "${{ github.event.pull_request.number }}" \
+            --github-repo "${{ github.repository }}"
