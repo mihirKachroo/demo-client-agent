@@ -33,7 +33,7 @@ jobs:
           LANGSMITH_TRACING: "true"
           LANGSMITH_PROJECT: "Praxis Demo"
         run: |
-          praxis ci \
+          uv run praxis ci \
             --repo "$GITHUB_WORKSPACE" \
             --pr "${{ github.event.pull_request.number }}" \
             --github-repo "${{ github.repository }}"
