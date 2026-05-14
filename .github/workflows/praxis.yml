@@ -1,0 +1,39 @@
+name: Praxis
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  praxis:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: astral-sh/setup-uv@v5
+
+      - name: Install client dependencies
+        run: uv sync --extra dev
+
+      - name: Install Praxis
+        run: uv pip install praxis-ai==0.1.1
+
+      - name: Run Praxis
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY }}
+          LANGSMITH_TRACING: "true"
+          LANGSMITH_PROJECT: "Praxis Demo"
+        run: |
+          uv run praxis ci \
+            --repo "$GITHUB_WORKSPACE" \
+            --pr "${{ github.event.pull_request.number }}" \
+            --github-repo "${{ github.repository }}"
