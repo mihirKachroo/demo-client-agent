@@ -23,7 +23,7 @@ jobs:
         run: uv sync --extra dev
 
       - name: Install Praxis
-        run: uv pip install praxis-ai==0.1.0
+        run: uv pip install praxis-ai==0.1.1
 
       - name: Run Praxis
         env:
