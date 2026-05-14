@@ -20,6 +20,7 @@ jobs:
       - uses: Tile-Labs/Praxis/.github/actions/praxis@mihir
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          praxis-version: "0.1.0"
           client-setup-command: uv sync --extra dev
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
